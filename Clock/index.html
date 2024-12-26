@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Date Section -->
+        <div class="date" id="date"></div>
+
+        <!-- Time Section -->
+        <div class="time-box">
+            <div class="time" id="hrs">
+                <span>hour</span>
+            </div>
+            <div class="time" id="min">
+                <span>minutes</span>
+            </div>
+            <div class="time" id="sec">
+                <span>seconds</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to update the current time and date
+        function updateTime() {
+            let currentTime = new Date();
+
+            // Update time
+            let hours = currentTime.getHours();
+            let minutes = currentTime.getMinutes();
+            let seconds = currentTime.getSeconds();
+            
+            document.getElementById("hrs").innerHTML = `<span>${(hours < 10 ? "0" : "") + hours}</span><span>hour</span>`;
+            document.getElementById("min").innerHTML = `<span>${(minutes < 10 ? "0" : "") + minutes}</span><span>minutes</span>`;
+            document.getElementById("sec").innerHTML = `<span>${(seconds < 10 ? "0" : "") + seconds}</span><span>seconds</span>`;
+
+            // Update date
+            let day = currentTime.getDate();
+            let month = currentTime.toLocaleString('default', { month: 'long' });
+            let year = currentTime.getFullYear();
+            document.getElementById("date").innerHTML = `${day} ${month} ${year}`;
+
+            // Check if the time is 11:22:04 and add the 'large' class
+            if (hours === 11 && minutes === 22 && seconds === 4) {
+                document.getElementById("hrs").classList.add("large");
+                document.getElementById("min").classList.add("large");
+                document.getElementById("sec").classList.add("large");
+            } else {
+                document.getElementById("hrs").classList.remove("large");
+                document.getElementById("min").classList.remove("large");
+                document.getElementById("sec").classList.remove("large");
+            }
+        }
+
+        // Update time every second
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+</html>
